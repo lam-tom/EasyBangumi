@@ -45,6 +45,7 @@ fun RowScope.Action(
             .fillMaxHeight()
             .weight(1f)
             .clip(CircleShape)
+            .tvSimpleFocusable()
             .clickable {
                 onClick()
             }

@@ -53,6 +53,7 @@ fun CartoonCardWithCover(
     Column(
         modifier = modifier
             .clip(RoundedCornerShape(4.dp))
+            .tvFocusable(cornerRadius = 4.dp)
             .combinedClickable(
                 onClick = {
                     onClick(cartoonCover)
@@ -131,6 +132,7 @@ fun CartoonStarCardWithCover(
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(4.dp))
+            .tvFocusable(cornerRadius = 4.dp)
             .run {
                 if (selected) {
                     background(MaterialTheme.colorScheme.primary)

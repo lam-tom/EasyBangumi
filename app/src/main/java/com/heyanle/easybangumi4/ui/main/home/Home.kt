@@ -219,12 +219,14 @@ fun HomeBottomSheet(
     LazyColumn() {
         items(animSources.pages()) { page ->
             ListItem(
-                modifier = Modifier.clickable {
-                    vm.changeSelectionSource(page.source.key)
-                    scope.launch {
-                        onDismissRequest()
-                    }
-                },
+                modifier = Modifier
+                    .tvSimpleFocusable()
+                    .clickable {
+                        vm.changeSelectionSource(page.source.key)
+                        scope.launch {
+                            onDismissRequest()
+                        }
+                    },
                 headlineContent = { Text(text = page.source.label) },
                 leadingContent = {
                     val icon = remember {

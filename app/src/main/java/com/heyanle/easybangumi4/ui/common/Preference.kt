@@ -41,9 +41,11 @@ fun BooleanPreferenceItem(
     onChange: (Boolean) -> Unit,
 ) {
     ListItem(
-        modifier = modifier.clickable {
-            onChange(!change)
-        },
+        modifier = modifier
+            .tvSimpleFocusable()
+            .clickable {
+                onChange(!change)
+            },
         headlineContent = title,
         leadingContent = icon,
         supportingContent = subtitle,
@@ -99,9 +101,11 @@ inline fun <reified T : Enum<T>> EmumPreferenceItem(
     val scope = rememberCoroutineScope()
 
     ListItem(
-        modifier = modifier.clickable {
-            showDialog = true
-        },
+        modifier = modifier
+            .tvSimpleFocusable()
+            .clickable {
+                showDialog = true
+            },
         headlineContent = title,
         leadingContent = icon,
         supportingContent = {
@@ -167,9 +171,11 @@ fun StringSelectPreferenceItem(
     }
 
     ListItem(
-        modifier = modifier.clickable {
-            showDialog = true
-        },
+        modifier = modifier
+            .tvSimpleFocusable()
+            .clickable {
+                showDialog = true
+            },
         headlineContent = title,
         leadingContent = icon,
         supportingContent = {
@@ -246,9 +252,11 @@ fun StringEditPreferenceItem(
     }
 
     ListItem(
-        modifier = modifier.clickable {
-            showDialog = true
-        },
+        modifier = modifier
+            .tvSimpleFocusable()
+            .clickable {
+                showDialog = true
+            },
         headlineContent = title,
         leadingContent = icon,
         supportingContent = {
@@ -326,9 +334,11 @@ fun LongEditPreferenceItem(
     }
 
     ListItem(
-        modifier = modifier.clickable {
-            showDialog = true
-        },
+        modifier = modifier
+            .tvSimpleFocusable()
+            .clickable {
+                showDialog = true
+            },
         headlineContent = title,
         leadingContent = icon,
         supportingContent = {
