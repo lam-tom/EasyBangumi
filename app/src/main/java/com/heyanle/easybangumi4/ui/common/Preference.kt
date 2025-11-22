@@ -106,10 +106,17 @@ inline fun <reified T : Enum<T>> EmumPreferenceItem(
     val value by preference.flow().collectAsState(preference.get())
     val scope = rememberCoroutineScope()
 
+    val interactionSource = remember { MutableInteractionSource() }
+    
     ListItem(
-        modifier = modifier.clickable {
-            showDialog = true
-        },
+        modifier = modifier
+            .tvFocusableBorder(interactionSource = interactionSource, cornerRadius = 0.dp)
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null
+            ) {
+                showDialog = true
+            },
         headlineContent = title,
         leadingContent = icon,
         supportingContent = {
@@ -174,10 +181,17 @@ fun StringSelectPreferenceItem(
         mutableStateOf(false)
     }
 
+    val interactionSource = remember { MutableInteractionSource() }
+    
     ListItem(
-        modifier = modifier.clickable {
-            showDialog = true
-        },
+        modifier = modifier
+            .tvFocusableBorder(interactionSource = interactionSource, cornerRadius = 0.dp)
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null
+            ) {
+                showDialog = true
+            },
         headlineContent = title,
         leadingContent = icon,
         supportingContent = {
@@ -253,10 +267,17 @@ fun StringEditPreferenceItem(
         mutableStateOf(false)
     }
 
+    val interactionSource = remember { MutableInteractionSource() }
+    
     ListItem(
-        modifier = modifier.clickable {
-            showDialog = true
-        },
+        modifier = modifier
+            .tvFocusableBorder(interactionSource = interactionSource, cornerRadius = 0.dp)
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null
+            ) {
+                showDialog = true
+            },
         headlineContent = title,
         leadingContent = icon,
         supportingContent = {
@@ -333,10 +354,17 @@ fun LongEditPreferenceItem(
         mutableStateOf(false)
     }
 
+    val interactionSource = remember { MutableInteractionSource() }
+    
     ListItem(
-        modifier = modifier.clickable {
-            showDialog = true
-        },
+        modifier = modifier
+            .tvFocusableBorder(interactionSource = interactionSource, cornerRadius = 0.dp)
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null
+            ) {
+                showDialog = true
+            },
         headlineContent = title,
         leadingContent = icon,
         supportingContent = {
