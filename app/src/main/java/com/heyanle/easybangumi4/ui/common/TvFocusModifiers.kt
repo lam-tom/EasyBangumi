@@ -64,13 +64,14 @@ fun Modifier.tvFocusable(
 fun Modifier.tvSimpleFocusable(): Modifier = composed {
     val interactionSource = remember { MutableInteractionSource() }
     val isFocused by interactionSource.collectIsFocusedAsState()
+    val focusedBorderColor = MaterialTheme.colorScheme.primary
     
     this
         .then(
             if (isFocused) {
                 Modifier.border(
                     width = 3.dp,
-                    color = Color.White,
+                    color = focusedBorderColor,
                     shape = RoundedCornerShape(4.dp)
                 )
             } else {
