@@ -61,25 +61,19 @@ fun Modifier.tvFocusable(
 /**
  * Simplified TV focusable modifier for simple use cases
  * Uses default styling and automatically manages interaction source
+ * 
+ * Note: This creates its own internal interaction source.
+ * If you need to share interaction source with clickable modifiers,
+ * use tvFocusable() with explicit interactionSource parameter instead.
  */
 fun Modifier.tvSimpleFocusable(): Modifier = composed {
-    val interactionSource = remember { MutableInteractionSource() }
-    val isFocused by interactionSource.collectIsFocusedAsState()
-    val focusedBorderColor = MaterialTheme.colorScheme.primary
-    
-    this
-        .then(
-            if (isFocused) {
-                Modifier.border(
-                    width = 3.dp,
-                    color = focusedBorderColor,
-                    shape = RoundedCornerShape(4.dp)
-                )
-            } else {
-                Modifier
-            }
-        )
-        .focusable(interactionSource = interactionSource)
+    tvFocusable(
+        focusedBorderColor = null, // Will use theme primary color
+        focusedBorderWidth = 3.dp,
+        focusedScale = 1.0f, // No scale for simple version
+        cornerRadius = 4.dp,
+        interactionSource = null // Will create internal source
+    )
 }
 
 /**
