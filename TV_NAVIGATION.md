@@ -75,7 +75,7 @@ The following UI components have been enhanced with TV focus support:
 
 3. **Preference Items**
    - `BooleanPreferenceItem`: Toggle settings
-   - `EmumPreferenceItem`: Enum selection settings
+   - `EnumPreferenceItem`: Enum selection settings
    - `StringSelectPreferenceItem`: String selection settings
    - `StringEditPreferenceItem`: Text input settings
    - `LongEditPreferenceItem`: Number input settings
