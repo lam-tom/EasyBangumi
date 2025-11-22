@@ -1,6 +1,7 @@
 package com.heyanle.easybangumi4.ui.common
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
@@ -40,10 +41,17 @@ fun BooleanPreferenceItem(
     change: Boolean,
     onChange: (Boolean) -> Unit,
 ) {
+    val interactionSource = remember { MutableInteractionSource() }
+    
     ListItem(
-        modifier = modifier.clickable {
-            onChange(!change)
-        },
+        modifier = modifier
+            .tvFocusableBorder(interactionSource = interactionSource, cornerRadius = 0.dp)
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null
+            ) {
+                onChange(!change)
+            },
         headlineContent = title,
         leadingContent = icon,
         supportingContent = subtitle,
