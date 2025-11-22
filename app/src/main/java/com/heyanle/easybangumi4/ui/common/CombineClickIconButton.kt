@@ -41,8 +41,11 @@ fun CombineClickIconButton(
             .size(40.dp)
             .clip(CircleShape)
             .background(color = Color.Transparent)
+            .tvFocusable(interactionSource = interactionSource, cornerRadius = 50.dp)
             .combinedClickable(
                 enabled = enabled,
+                interactionSource = interactionSource,
+                indication = null,
                 onClick = onClick,
                 onLongClick = onLongClick,
                 role = Role.Button,

@@ -1,6 +1,7 @@
 package com.heyanle.easybangumi4.ui.common
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
@@ -40,10 +41,17 @@ fun BooleanPreferenceItem(
     change: Boolean,
     onChange: (Boolean) -> Unit,
 ) {
+    val interactionSource = remember { MutableInteractionSource() }
+    
     ListItem(
-        modifier = modifier.clickable {
-            onChange(!change)
-        },
+        modifier = modifier
+            .tvFocusableBorder(interactionSource = interactionSource, cornerRadius = 0.dp)
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null
+            ) {
+                onChange(!change)
+            },
         headlineContent = title,
         leadingContent = icon,
         supportingContent = subtitle,
@@ -98,10 +106,17 @@ inline fun <reified T : Enum<T>> EmumPreferenceItem(
     val value by preference.flow().collectAsState(preference.get())
     val scope = rememberCoroutineScope()
 
+    val interactionSource = remember { MutableInteractionSource() }
+    
     ListItem(
-        modifier = modifier.clickable {
-            showDialog = true
-        },
+        modifier = modifier
+            .tvFocusableBorder(interactionSource = interactionSource, cornerRadius = 0.dp)
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null
+            ) {
+                showDialog = true
+            },
         headlineContent = title,
         leadingContent = icon,
         supportingContent = {
@@ -166,10 +181,17 @@ fun StringSelectPreferenceItem(
         mutableStateOf(false)
     }
 
+    val interactionSource = remember { MutableInteractionSource() }
+    
     ListItem(
-        modifier = modifier.clickable {
-            showDialog = true
-        },
+        modifier = modifier
+            .tvFocusableBorder(interactionSource = interactionSource, cornerRadius = 0.dp)
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null
+            ) {
+                showDialog = true
+            },
         headlineContent = title,
         leadingContent = icon,
         supportingContent = {
@@ -245,10 +267,17 @@ fun StringEditPreferenceItem(
         mutableStateOf(false)
     }
 
+    val interactionSource = remember { MutableInteractionSource() }
+    
     ListItem(
-        modifier = modifier.clickable {
-            showDialog = true
-        },
+        modifier = modifier
+            .tvFocusableBorder(interactionSource = interactionSource, cornerRadius = 0.dp)
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null
+            ) {
+                showDialog = true
+            },
         headlineContent = title,
         leadingContent = icon,
         supportingContent = {
@@ -325,10 +354,17 @@ fun LongEditPreferenceItem(
         mutableStateOf(false)
     }
 
+    val interactionSource = remember { MutableInteractionSource() }
+    
     ListItem(
-        modifier = modifier.clickable {
-            showDialog = true
-        },
+        modifier = modifier
+            .tvFocusableBorder(interactionSource = interactionSource, cornerRadius = 0.dp)
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null
+            ) {
+                showDialog = true
+            },
         headlineContent = title,
         leadingContent = icon,
         supportingContent = {

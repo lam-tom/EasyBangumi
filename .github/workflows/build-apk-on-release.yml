@@ -1,0 +1,99 @@
+name: Build APK on Release
+
+# This workflow builds APK files when you create a GitHub Release
+on:
+  release:
+    types: [created, published]
+  workflow_dispatch:  # Allows manual trigger from Actions tab
+
+jobs:
+  build-apk:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'gradle'
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x ./gradlew
+
+      - name: Create dummy google-services.json (if needed)
+        run: |
+          if [ ! -f app/google-services.json ]; then
+            echo "Creating dummy google-services.json for build"
+            cat > app/google-services.json << 'EOF'
+          {
+            "project_info": {
+              "project_number": "000000000000",
+              "project_id": "easybangumi-dummy",
+              "storage_bucket": "easybangumi-dummy.appspot.com"
+            },
+            "client": [
+              {
+                "client_info": {
+                  "mobilesdk_app_id": "1:000000000000:android:0000000000000000000000",
+                  "android_client_info": {
+                    "package_name": "com.heyanle.easybangumi4.debug"
+                  }
+                },
+                "oauth_client": [],
+                "api_key": [
+                  {
+                    "current_key": "AIzaSyDummyKeyForBuildOnly-00000000000"
+                  }
+                ],
+                "services": {
+                  "appinvite_service": {
+                    "other_platform_oauth_client": []
+                  }
+                }
+              }
+            ],
+            "configuration_version": "1"
+          }
+          EOF
+          fi
+
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug --stacktrace
+        env:
+          RELEASE: false
+
+      - name: Get Version Info
+        id: version
+        run: |
+          VERSION_NAME=$(grep "versionName" buildSrc/src/main/java/com/heyanle/buildsrc/Android.kt | sed 's/.*"\(.*\)".*/\1/')
+          VERSION_CODE=$(grep "versionCode" buildSrc/src/main/java/com/heyanle/buildsrc/Android.kt | sed 's/.*= *\([0-9]*\).*/\1/')
+          echo "VERSION_NAME=$VERSION_NAME" >> $GITHUB_OUTPUT
+          echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_OUTPUT
+          echo "APK_NAME=easybangumi-${VERSION_NAME}-debug.apk" >> $GITHUB_OUTPUT
+
+      - name: Rename APK
+        run: |
+          mkdir -p artifacts
+          cp app/build/outputs/apk/debug/app-debug.apk artifacts/${{ steps.version.outputs.APK_NAME }}
+
+      - name: Upload APK to Release
+        uses: softprops/action-gh-release@v1
+        if: github.event_name == 'release'
+        with:
+          files: artifacts/${{ steps.version.outputs.APK_NAME }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload APK as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.version.outputs.APK_NAME }}
+          path: artifacts/${{ steps.version.outputs.APK_NAME }}
+          retention-days: 30

@@ -2,6 +2,7 @@ package com.heyanle.easybangumi4.ui.common
 
 import android.net.Uri
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -152,10 +153,15 @@ fun EasyMutiSelectionDialogStar(
                     message()
                     items.forEach { key ->
                         val select = selectList.contains(key)
+                        val interactionSource = remember { MutableInteractionSource() }
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .clickable {
+                                .tvFocusableBorder(interactionSource = interactionSource, cornerRadius = 0.dp)
+                                .clickable(
+                                    interactionSource = interactionSource,
+                                    indication = null
+                                ) {
                                     if (!select) {
                                         selectList.add(key)
                                     } else {
@@ -256,10 +262,15 @@ fun EasyMutiSelectionDialog(
                     message()
                     items.forEach { key ->
                         val select = selectList.contains(key)
+                        val interactionSource = remember { MutableInteractionSource() }
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .clickable {
+                                .tvFocusableBorder(interactionSource = interactionSource, cornerRadius = 0.dp)
+                                .clickable(
+                                    interactionSource = interactionSource,
+                                    indication = null
+                                ) {
                                     if (!select) {
                                         selectList.add(key)
                                     } else {
@@ -348,10 +359,15 @@ fun EasyMutiSelectionDialog(
                     LazyColumn {
                         items(items){ key ->
                             val select = selectList.contains(key)
+                            val interactionSource = remember { MutableInteractionSource() }
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .clickable {
+                                    .tvFocusableBorder(interactionSource = interactionSource, cornerRadius = 0.dp)
+                                    .clickable(
+                                        interactionSource = interactionSource,
+                                        indication = null
+                                    ) {
                                         if (!select) {
                                             selectList.add(key)
                                         } else {
