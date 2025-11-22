@@ -27,15 +27,16 @@ import androidx.compose.ui.unit.dp
  * Makes a composable focusable with visual feedback for TV remote navigation
  * Adds a border and scale effect when focused
  */
-@Composable
 fun Modifier.tvFocusable(
-    focusedBorderColor: Color = MaterialTheme.colorScheme.primary,
+    focusedBorderColor: Color? = null,
     focusedBorderWidth: Dp = 3.dp,
     focusedScale: Float = 1.05f,
     cornerRadius: Dp = 4.dp,
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
+    interactionSource: MutableInteractionSource? = null
 ): Modifier = composed {
-    val isFocused by interactionSource.collectIsFocusedAsState()
+    val source = interactionSource ?: remember { MutableInteractionSource() }
+    val borderColor = focusedBorderColor ?: MaterialTheme.colorScheme.primary
+    val isFocused by source.collectIsFocusedAsState()
     val scale by animateFloatAsState(
         targetValue = if (isFocused) focusedScale else 1f,
         label = "focus_scale"
@@ -47,14 +48,14 @@ fun Modifier.tvFocusable(
             if (isFocused) {
                 Modifier.border(
                     width = focusedBorderWidth,
-                    color = focusedBorderColor,
+                    color = borderColor,
                     shape = RoundedCornerShape(cornerRadius)
                 )
             } else {
                 Modifier
             }
         )
-        .focusable(interactionSource = interactionSource)
+        .focusable(interactionSource = source)
 }
 
 /**
